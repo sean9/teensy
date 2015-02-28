@@ -6,15 +6,15 @@ NO for no
 */
 
 /* mit planck layout
-	,-----------------------------------------------------------------------------------------------.
-    	| bkspc |   '   |   Q   |   W   |   E   |   R   |   T   |   Y   |   U   |   I   |   O   |   P   |
-	|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
-	|  tab  |   ;   |   A   |   S   |   D   |   F   |   G   |   H   |   J   |   K   |   L   | enter |
-	|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
-	|   (   |   )   |   Z   |   X   |   C   |   V   |   B   |   N   |   M   |   ,   |   .   |  / ?  |
-	|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
-	|   [   |   ]   |  del  |  esc  | shift |     space     |  rctl |  ralt |  FN0  |  FN1  |       |
-	`-----------------------------------------------------------------------------------------------'
+    ,-----------------------------------------------------------------------------------------------.
+    | bkspc |   '   |   Q   |   W   |   E   |   R   |   T   |   Y   |   U   |   I   |   O   |   P   |
+    |-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
+    |  tab  |   ;   |   A   |   S   |   D   |   F   |   G   |   H   |   J   |   K   |   L   | enter |
+    |-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
+    |   (   |   )   |   Z   |   X   |   C   |   V   |   B   |   N   |   M   |   ,   |   .   |  / ?  |
+    |-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
+    |   [   |   ]   |       |  esc  | shift |     space     |  rctl |  ralt |  FN0  |  FN1  |       |
+    `-----------------------------------------------------------------------------------------------'
     ,-----------------------------------------------------------------------------------------------.
     |   !   |   @   |   #   |   $   |   %   |   ^   |   &   |   *   |  -/_  |  =/+  |   \|  |   `~  |
     |-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
@@ -36,22 +36,22 @@ NO for no
 */
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[0] = KEYMAP( 
-	    BSPC,   QUOT,      Q,      W,      E,      R,      T,      Y,      U,      I,      O,      P, 
+	BSPC,   QUOT,      Q,      W,      E,      R,      T,      Y,      U,      I,      O,      P, 
          TAB,   SCLN,      A,      S,      D,      F,      G,      H,      J,      K,      L,    ENT,
          FN3,    FN4,      Z,      X,      C,      V,      B,      N,      M,   COMM,    DOT,   SLSH,
-        LBRC,   RBRC, DELETE,    ESC,   LSFT,            SPC,   RCTL,   RALT,    FN0,    FN1,  NO    ), 
+        LBRC,   RBRC,     NO,    ESC,   LSFT,            SPC,   RCTL,   RALT,    FN0,    FN1,    NO), 
 
 	[1] = KEYMAP( 
-	     FN5,    FN6,    FN7,    FN8,    FN9,   FN10,   FN11,   FN12,   MINS,    EQL,   BSLS,    GRV,
-	  NO,   MNXT,   LEFT,   DOWN,     UP,  RIGHT,    NO  ,   NO    ,   NO    ,    INS,   HOME,   PGUP,
-	 NO,   MPRV,     NO  ,    NO   ,    NO   ,    NO  ,     NO  ,    NO   ,     NO  ,   NO    ,    END, PGDOWN,
-	    MUTE,   MPLY,     NO ,   NO   ,   NO    ,            SPC,    NO   ,  NO     ,  NO     ,   LGUI,  PSCR),
+	 FN5,    FN6,    FN7,    FN8,    FN9,   FN10,   FN11,   FN12,   MINS,    EQL,   BSLS,    GRV,
+          NO,   MNXT,   LEFT,   DOWN,     UP,  RIGHT,     NO,     NO,     NO,    INS,   HOME,   PGUP,
+	  NO,   MPRV,     NO,     NO,     NO,     NO,     NO,     NO,     NO,     NO,    END, PGDOWN,
+	MUTE,   MPLY,     NO,     NO,     NO,            SPC,     NO,     NO,     NO,   LGUI,  PSCR),
 
 	[2] = KEYMAP( 
-           7,      8,      9,   BSPC,   NO    ,   NO    ,   NO    ,  NO    ,     F1,     F2,     F3,     F4,
-           4,      5,      6,   NO    ,    NO   ,    NO   ,  NO    ,   NO    ,     F5,     F6,     F7,     F8,
-           1,      2,      3,   PPLS,   PAST,    NO   ,   NO    ,  NO     ,     F9,    F10,    F11,    F12,
-           0,    DOT,    ENT,   PMNS,   PSLS,            SPC,   NO   ,    NO   , NO    ,  NO    ,   NO   ),
+           7,      8,      9,   BSPC,    NO,      NO,     NO,     NO,     F1,     F2,     F3,     F4,
+           4,      5,      6,     NO,    NO,      NO,     NO,     NO,     F5,     F6,     F7,     F8,
+           1,      2,      3,   PPLS,   PAST,     NO,     NO,     NO,     F9,    F10,    F11,    F12,
+           0,    DOT,    ENT,   PMNS,   PSLS,            SPC,     NO,     NO,     NO,     NO,    NO),
 };
 
 const uint16_t PROGMEM fn_actions[] = {
