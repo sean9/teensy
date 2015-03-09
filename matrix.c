@@ -43,6 +43,11 @@ static void init_cols(void);
 static void unselect_rows(void);
 static void select_row(uint8_t row);
 
+void exzites_pwm_init(void);
+void exzites_pwm_duty(int dutyCycle);
+
+
+
 inline
 uint8_t matrix_rows(void)
 {
@@ -55,11 +60,26 @@ uint8_t matrix_cols(void)
 	return MATRIX_COLS;
 }
 
+//static
+//void setup_leds(void) {
+//	DDRB |= 1 << 7;
+//	PORTB |= 1 << 7;
+//}
+
 void matrix_init(void)
 {
 	// initialize row and col
 	unselect_rows();
 	init_cols();
+
+
+
+	exzites_pwm_init();
+	exzites_pwm_duty(100);
+
+	
+
+	//setup_leds();
 
 	// initialize matrix state: all keys off
 	for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
@@ -137,36 +157,36 @@ uint8_t matrix_key_count(void)
 
 static void init_cols(void)
 {
-	DDRB &= ~(1 << 0 | 1 << 1 | 1 << 2 | 1 << 3 | 1 << 7);
-	PORTB |= (1 << 0 | 1 << 1 | 1 << 2 | 1 << 3 | 1 << 7);
-	DDRC &= ~(1 << 6 | 1 << 7);
-	PORTC |= (1 << 6 | 1 << 7);
-	DDRD &= ~(1 << 0 | 1 << 1 | 1 << 2 | 1 << 3 | 1 << 5);
-	PORTD |= (1 << 0 | 1 << 1 | 1 << 2 | 1 << 3 | 1 << 5);
+	DDRB &= ~(1 << 6 | 1 << 5 | 1 << 4 | 1 << 3 | 1 << 2);
+	PORTB |= (1 << 6 | 1 << 5 | 1 << 4 | 1 << 3 | 1 << 2);
+	DDRD &= ~(1 << 7 | 1 << 4 | 1 << 5 | 1 << 3 | 1 << 2 | 1 << 1);
+	PORTD |= (1 << 7 | 1 << 4 | 1 << 5 | 1 << 3 | 1 << 2 | 1 << 1);
+	DDRF &= ~(1 << 7);
+	PORTF |= (1 << 7);
 
 }
 
 static matrix_row_t read_cols(void)
 {
-	return (PINB&(1 << 0) ? 0 : (1 << 0)) |
-		(PINB&(1 << 1) ? 0 : (1 << 1)) |
-		(PINB&(1 << 2) ? 0 : (1 << 2)) |
-		(PINB&(1 << 3) ? 0 : (1 << 3)) |
-		(PINB&(1 << 7) ? 0 : (1 << 4)) |
-		(PIND&(1 << 0) ? 0 : (1 << 5)) |
-		(PIND&(1 << 1) ? 0 : (1 << 6)) |
-		(PIND&(1 << 2) ? 0 : (1 << 7)) |
-		(PIND&(1 << 3) ? 0 : (1 << 8)) |
-		(PINC&(1 << 6) ? 0 : (1 << 9)) |
-		(PINC&(1 << 7) ? 0 : (1 << 10)) |
-		(PIND&(1 << 5) ? 0 : (1 << 11));
+	return (PINF&(1 << 7) ? 0 : (1 << 0)) |
+		(PINB&(1 << 6) ? 0 : (1 << 1)) |
+		(PINB&(1 << 5) ? 0 : (1 << 2)) |
+		(PINB&(1 << 4) ? 0 : (1 << 3)) |
+		(PIND&(1 << 7) ? 0 : (1 << 4)) |
+		(PIND&(1 << 4) ? 0 : (1 << 5)) |
+		(PIND&(1 << 5) ? 0 : (1 << 6)) |
+		(PIND&(1 << 3) ? 0 : (1 << 7)) |
+		(PIND&(1 << 2) ? 0 : (1 << 8)) |
+		(PIND&(1 << 1) ? 0 : (1 << 9)) |
+		(PINB&(1 << 3) ? 0 : (1 << 10)) |
+		(PINB&(1 << 2) ? 0 : (1 << 11));
 
 }
 
 static void unselect_rows(void)
 {
-	DDRF &= ~(1 << 0 | 1 << 1 | 1 << 4 | 1 << 5);
-	PORTF |= (1 << 0 | 1 << 1 | 1 << 4 | 1 << 5);
+	DDRF &= ~(1 << 1 | 1 << 4 | 1 << 5 | 1 << 6);
+	PORTF |= (1 << 1 | 1 << 4 | 1 << 5 | 1 << 6);
 
 }
 
@@ -174,21 +194,33 @@ static void select_row(uint8_t row)
 {
 	switch (row) {
 	case 0:
-		DDRF |= (1 << 0);
-		PORTF &= ~(1 << 0);
-		break;
-	case 1:
 		DDRF |= (1 << 1);
 		PORTF &= ~(1 << 1);
 		break;
-	case 2:
+	case 1:
 		DDRF |= (1 << 4);
 		PORTF &= ~(1 << 4);
 		break;
-	case 3:
+	case 2:
 		DDRF |= (1 << 5);
 		PORTF &= ~(1 << 5);
 		break;
+	case 3:
+		DDRF |= (1 << 6);
+		PORTF &= ~(1 << 6);
+		break;
 
 	}
+}
+
+void exzites_pwm_init(void)
+{
+	TCCR0A = (0 << WGM1) | (1 << WGM0) | (1 << COM0A1) | (0 << COM0a0);
+	TCCR0B = (0 << WGM2) | (0 << CS02) | (1 << CS01) | (1 << CS00);
+	DDRB = (1 << PB7);
+}
+
+void exzites_pwm_duty(int dutyCycle)
+{
+	OCR0 = dutyCycle;  // 0x00 == 0% on.  0x7F == 50% on.  0xFF == 100% on.
 }
